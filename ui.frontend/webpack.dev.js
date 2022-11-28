@@ -19,6 +19,10 @@ module.exports = env => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, SOURCE_ROOT + '/static/index.html')
+            }),
+            new HtmlWebpackPlugin({  // Also generate a natours.html
+                filename: 'natours.html',
+                template: path.resolve(__dirname, SOURCE_ROOT + '/static/natours.html')
             })
         ],
         devServer: {

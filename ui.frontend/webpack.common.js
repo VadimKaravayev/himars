@@ -19,11 +19,20 @@ const resolve = {
 module.exports = {
     resolve: resolve,
     entry: {
-        site: SOURCE_ROOT + '/site/main.ts'
+        site: SOURCE_ROOT + '/site/main.ts',
+        natours: SOURCE_ROOT + '/natours/main.ts'
     },
     output: {
         filename: (chunkData) => {
-            return chunkData.chunk.name === 'dependencies' ? 'clientlib-dependencies/[name].js' : 'clientlib-site/[name].js';
+            switch (chunkData.chunk.name) {
+                case 'dependencies':
+                    return 'clientlib-dependencies/[name].js';
+                case 'natours':
+                    return 'clientlib-natours/[name].js';
+                default:
+                    return 'clientlib-site/[name].js';
+            }
+            // return chunkData.chunk.name === 'dependencies' ? 'clientlib-dependencies/[name].js' : 'clientlib-site/[name].js';
         },
         path: path.resolve(__dirname, 'dist')
     },

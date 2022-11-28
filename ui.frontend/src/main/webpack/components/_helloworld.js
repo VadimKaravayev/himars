@@ -8,7 +8,7 @@
     // For a good separation of concerns, don't rely on the DOM structure or CSS selectors,
     // but use dedicated data attributes to identify all elements that the script needs to
     // interact with.
-    var selectors = {
+    const selectors = {
         self:      '[data-cmp-is="helloworld"]',
         property:  '[data-cmp-hook-helloworld="property"]',
         message:   '[data-cmp-hook-helloworld="model"]'
@@ -22,11 +22,11 @@
             // identified the component.
             config.element.removeAttribute("data-cmp-is");
 
-            var property = config.element.querySelectorAll(selectors.property);
-            property = property.length == 1 ? property[0].textContent : null;
+            let property = config.element.querySelectorAll(selectors.property);
+            property = property.length === 1 ? property[0].textContent : null;
 
-            var model = config.element.querySelectorAll(selectors.message);
-            model = model.length == 1 ? model[0].textContent : null;
+            let model = config.element.querySelectorAll(selectors.message);
+            model = model.length === 1 ? model[0].textContent : null;
 
             if (console && console.log) {
                 console.log(
@@ -43,24 +43,24 @@
     }
 
     // Best practice:
-    // Use a method like this mutation obeserver to also properly initialize the component
+    // Use a method like this mutation observer to also properly initialize the component
     // when an author drops it onto the page or modified it with the dialog.
     function onDocumentReady() {
-        var elements = document.querySelectorAll(selectors.self);
-        for (var i = 0; i < elements.length; i++) {
+        const elements = document.querySelectorAll(selectors.self);
+        for (let i = 0; i < elements.length; i++) {
             new HelloWorld({ element: elements[i] });
         }
 
-        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-        var body             = document.querySelector("body");
-        var observer         = new MutationObserver(function(mutations) {
+        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+        const body             = document.querySelector("body");
+        const observer         = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 // needed for IE
-                var nodesArray = [].slice.call(mutation.addedNodes);
+                const nodesArray = [].slice.call(mutation.addedNodes);
                 if (nodesArray.length > 0) {
                     nodesArray.forEach(function(addedNode) {
                         if (addedNode.querySelectorAll) {
-                            var elementsArray = [].slice.call(addedNode.querySelectorAll(selectors.self));
+                            const elementsArray = [].slice.call(addedNode.querySelectorAll(selectors.self));
                             elementsArray.forEach(function(element) {
                                 new HelloWorld({ element: element });
                             });
